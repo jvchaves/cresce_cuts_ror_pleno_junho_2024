@@ -1,0 +1,36 @@
+# Ignore arquivos temporários e de configuração
+/tmp/*
+/log/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore os arquivos de ambiente local
+/.env*
+
+# Ignore arquivos de backup do sistema
+*.bak
+
+# Ignore arquivos de dependências gerados
+/vendor/bundle
+/node_modules
+
+# Ignore arquivos de configuração de IDEs
+/.idea
+/.vscode
+
+# Ignore arquivos de cache
+*.cache
+
+# Ignore arquivos de build
+/build
+
+# Ignore arquivos de asset compilados
+/public/assets
+
+# Ignore o banco de dados
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/*.sqlite3-wal
+
+# Ignore arquivos de histórico do shell
+/history
