@@ -36,23 +36,32 @@
       .nav-link img {
         margin-right: 10px; /* Adicione um espaçamento entre a imagem e o texto */
       }
+      .content {
+        padding-left: 1opx; /* Adicione um espaçamento à esquerda para acomodar o sidebar */
+      }
     </style>
   </head>
 
   <body>
-    <div class="d-flex flex-column flex-shrink-0 sidebar vh-100">
-      <div class="logo text-center">
-        <img src="logo.png" alt="Logo" class="img-fluid">
+    <div class="d-flex flex-row">
+      <!-- Sidebar -->
+      <div class="sidebar vh-100">
+        <div class="logo text-center">
+          <img src="/logo.png" alt="Logo" class="img-fluid">
+        </div>
+        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+          <li> <a href="descontos" class="nav-link py-3 border-bottom"> <img src="/cash_move.svg" class="movimentacao"> <small>Lista Descontos</small> </a> </li>
+          <li> <a href="produtos" class="nav-link py-3 border-bottom"> <img src="/cash_move.svg" class="movimentacao"> <small>Produtos</small> </a> </li>
+          <li> <a href="lojas" class="nav-link py-3 border-bottom"> <img src="/cash_move.svg" class="movimentacao"> <small>Lojas</small> </a> </li>
+        </ul>
       </div>
-      <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-        <li> <a href="descontos" class="nav-link py-3 border-bottom"> <img src="cash_move.svg" class="movimentacao"> <small>Lista Descontos</small> </a> </li>
-        <li> <a href="produtos" class="nav-link py-3 border-bottom"> <img src="cash_move.svg" class="movimentacao"> <small>Produtos</small> </a> </li>
-        <li> <a href="lojas" class="nav-link py-3 border-bottom"> <img src="cash_move.svg" class="movimentacao"> <small>Lojas</small> </a> </li>
-      </ul>
-    </div>
 
-    <div class="container-fluid">
-      <%= yield %>
+      <!-- Conteúdo -->
+      <div class="content">
+        <div class="container-fluid">
+          <%= yield %>
+        </div>
+      </div>
     </div>
   </body>
 </html>
