@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Descontos</h1>
+
+<div id="descontos">
+  <% @descontos.each do |desconto| %>
+    <%= render desconto %>
+    <p>
+      <%= link_to "Show this desconto", desconto %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New desconto", new_desconto_path %>

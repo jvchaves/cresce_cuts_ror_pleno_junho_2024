@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @desconto %>
+
+<div>
+  <%= link_to "Edit this desconto", edit_desconto_path(@desconto) %> |
+  <%= link_to "Back to descontos", descontos_path %>
+
+  <%= button_to "Destroy this desconto", @desconto, method: :delete %>
+</div>

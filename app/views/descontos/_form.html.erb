@@ -1,0 +1,77 @@
+<%= form_with(model: desconto) do |form| %>
+  <% if desconto.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(desconto.errors.count, "error") %> prohibited this desconto from being saved:</h2>
+
+      <ul>
+        <% desconto.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :descricao, style: "display: block" %>
+    <%= form.text_field :descricao %>
+  </div>
+
+  <div>
+    <%= form.label :tipo, style: "display: block" %>
+    <%= form.text_field :tipo %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.check_box :status %>
+  </div>
+
+  <div>
+    <%= form.label :preco, style: "display: block" %>
+    <%= form.text_field :preco %>
+  </div>
+
+  <div>
+    <%= form.label :leve, style: "display: block" %>
+    <%= form.number_field :leve %>
+  </div>
+
+  <div>
+    <%= form.label :pague, style: "display: block" %>
+    <%= form.number_field :pague %>
+  </div>
+
+  <div>
+    <%= form.label :percentual_desconto, style: "display: block" %>
+    <%= form.text_field :percentual_desconto %>
+  </div>
+
+  <div>
+    <%= form.label :preco_de, style: "display: block" %>
+    <%= form.text_field :preco_de %>
+  </div>
+
+  <div>
+    <%= form.label :preco_por, style: "display: block" %>
+    <%= form.text_field :preco_por %>
+  </div>
+
+  <div>
+    <%= form.label :ativacao, style: "display: block" %>
+    <%= form.date_field :ativacao %>
+  </div>
+
+  <div>
+    <%= form.label :inativacao, style: "display: block" %>
+    <%= form.date_field :inativacao %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
