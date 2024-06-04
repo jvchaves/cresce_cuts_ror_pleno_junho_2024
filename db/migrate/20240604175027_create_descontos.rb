@@ -5,7 +5,7 @@ class CreateDescontos < ActiveRecord::Migration[7.0]
       t.string :nome
       t.string :descricao
       t.string :tipo
-      t.boolean :status
+      t.boolean :status, default: true
       t.decimal :preco
       t.integer :leve
       t.integer :pague
