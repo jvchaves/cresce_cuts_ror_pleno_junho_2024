@@ -65,6 +65,6 @@ class DescontosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def desconto_params
-      params.require(:desconto).permit(:nome, :descricao, :tipo, :status, :preco, :leve, :pague, :percentual_desconto, :preco_de, :preco_por, :ativacao, :inativacao)
+      params.require(:desconto).permit(:produto_id, :nome, :descricao, :tipo, :status, :preco, :leve, :pague, :percentual_desconto, :preco_de, :preco_por, :ativacao, :inativacao)
     end
 end
