@@ -1,86 +1,91 @@
 <%= form_with(model: desconto) do |form| %>
-  <% if desconto.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(desconto.errors.count, "error") %> prohibited this desconto from being saved:</h2>
-
-      <ul>
-        <% desconto.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1>Formulário cadastro desconto</h1>
+        <div class="d-flex align-items-center">
+          <div class="form-check form-switch">
+            <%= form.check_box :status, class: "form-check-input", id: "status_checkbox" %>
+            <%= label_tag :status, "Ativo", class: "form-check-label ml-2", id: "status_label" %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
+    <div class="card-body">
+      <% if desconto.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(desconto.errors.count, "error") %> prohibited this desconto from being saved:</h2>
+          <ul>
+            <% desconto.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="d-flex align-items-center mb-3">
-    <h1 class="mr-3">Formulário cadastro desconto</h1>
-    <div class="form-check form-switch">
-      <%= form.check_box :status, class: "form-check-input", id: "status_checkbox" %>
-      <%= label_tag :status, "Ativo", class: "form-check-label", id: "status_label" %>
+      <div>
+        <%= form.label :produto_id, "Produto", style: "display: block" %>
+        <%= form.collection_select :produto_id, @produtos, :id, :nome, prompt: "Selecione um produto" %>
+      </div>
+
+      <div>
+        <%= form.label :nome, style: "display: block" %>
+        <%= form.text_field :nome %>
+      </div>
+
+      <div>
+        <%= form.label :descricao, style: "display: block" %>
+        <%= form.text_field :descricao %>
+      </div>
+
+      <div>
+        <%= form.label :tipo, style: "display: block" %>
+        <%= form.select :tipo, Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }, prompt: "Selecione um tipo" %>
+      </div>
+
+      <div>
+        <%= form.label :preco, style: "display: block" %>
+        <%= form.text_field :preco %>
+      </div>
+
+      <div>
+        <%= form.label :leve, style: "display: block" %>
+        <%= form.number_field :leve %>
+      </div>
+
+      <div>
+        <%= form.label :pague, style: "display: block" %>
+        <%= form.number_field :pague %>
+      </div>
+
+      <div>
+        <%= form.label :percentual_desconto, style: "display: block" %>
+        <%= form.text_field :percentual_desconto %>
+      </div>
+
+      <div>
+        <%= form.label :preco_de, style: "display: block" %>
+        <%= form.text_field :preco_de %>
+      </div>
+
+      <div>
+        <%= form.label :preco_por, style: "display: block" %>
+        <%= form.text_field :preco_por %>
+      </div>
+
+      <div>
+        <%= form.label :ativacao, style: "display: block" %>
+        <%= form.date_field :ativacao %>
+      </div>
+
+      <div>
+        <%= form.label :inativacao, style: "display: block" %>
+        <%= form.date_field :inativacao %>
+      </div>
     </div>
-  </div>
-
-  <div>
-    <%= form.label :produto_id, "Produto", style: "display: block" %>
-    <%= form.collection_select :produto_id, @produtos, :id, :nome, prompt: "Selecione um produto" %>
-  </div>
-
-  <div>
-    <%= form.label :nome, style: "display: block" %>
-    <%= form.text_field :nome %>
-  </div>
-
-  <div>
-    <%= form.label :descricao, style: "display: block" %>
-    <%= form.text_field :descricao %>
-  </div>
-
-  <div>
-    <%= form.label :tipo, style: "display: block" %>
-    <%= form.select :tipo, Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }, prompt: "Selecione um tipo" %>
-  </div>
-
-  <div>
-    <%= form.label :preco, style: "display: block" %>
-    <%= form.text_field :preco %>
-  </div>
-
-  <div>
-    <%= form.label :leve, style: "display: block" %>
-    <%= form.number_field :leve %>
-  </div>
-
-  <div>
-    <%= form.label :pague, style: "display: block" %>
-    <%= form.number_field :pague %>
-  </div>
-
-  <div>
-    <%= form.label :percentual_desconto, style: "display: block" %>
-    <%= form.text_field :percentual_desconto %>
-  </div>
-
-  <div>
-    <%= form.label :preco_de, style: "display: block" %>
-    <%= form.text_field :preco_de %>
-  </div>
-
-  <div>
-    <%= form.label :preco_por, style: "display: block" %>
-    <%= form.text_field :preco_por %>
-  </div>
-
-  <div>
-    <%= form.label :ativacao, style: "display: block" %>
-    <%= form.date_field :ativacao %>
-  </div>
-
-  <div>
-    <%= form.label :inativacao, style: "display: block" %>
-    <%= form.date_field :inativacao %>
-  </div>
-
-  <div>
-    <%= form.submit "Enviar", data: {turbo: false} %>
+    <div class="card-footer text-right">
+      <%= form.submit "Enviar", class: "btn btn-primary", data: {turbo: false} %>
+    </div>
   </div>
 <% end %>
 
