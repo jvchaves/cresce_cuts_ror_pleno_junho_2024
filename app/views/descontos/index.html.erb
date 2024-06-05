@@ -20,7 +20,7 @@
           <%= select_tag :tipo, options_for_select([''] + Desconto.tipos.keys.map { |key| [key.humanize, key] }, params[:tipo]), class: "form-control" %>
         </div>
       </div>
-      <%= submit_tag 'Filtrar', data:{turbo: false},class: "btn btn-primary mt-2" %>
+      <%= submit_tag 'Filtrar', data:{turbo: false}, class: "btn btn-primary mt-2" %>
     <% end %>
   </div>
   <div>
