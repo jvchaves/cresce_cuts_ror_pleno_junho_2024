@@ -1,9 +1,11 @@
 <div id="<%= dom_id desconto %>" class="container-fluid">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-1">
+      <%= image_tag desconto.produto.foto, width: 50, height: 50, alt: "Foto do Produto" %>
+    </div>
+    <div class="col-md-1">
       <p><%= desconto.produto.nome %></p>
     </div>
-
     <div class="col-md-2">
       <p><%= Desconto.tipos[desconto.tipo] %></p>
     </div>
