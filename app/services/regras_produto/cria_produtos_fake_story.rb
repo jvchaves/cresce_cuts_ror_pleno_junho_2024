@@ -6,7 +6,7 @@ module RegrasProduto
 
     def execute
       @produtos.each do |produto|
-        Produto.create(nome:produto["title"], descricao: produto["description"] )
+        Produto.create(nome:produto["title"], descricao: produto["description"], foto: produto["image"])
       end
     end
   end
