@@ -16,6 +16,7 @@ class DescontosController < ApplicationController
 
   # GET /descontos/new
   def new
+    @loja = Loja.first
     @desconto = Desconto.new
     @produtos = Produto.all
   end
