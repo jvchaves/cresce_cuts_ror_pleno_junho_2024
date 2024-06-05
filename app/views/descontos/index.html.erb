@@ -1,14 +1,40 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Descontos</h1>
-
-<div id="descontos">
-  <% @descontos.each do |desconto| %>
-    <%= render desconto %>
-    <p>
-      <%= link_to "Show this desconto", desconto %>
-    </p>
-  <% end %>
+<h1>Lista de descontos</h1>
+<p style="font-size: smaller;font-style: italic;"><%= "Loja: #{@loja.nome} - Nova loja online"%></p>
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h2>Descontos cadastrados</h2>
+    <%= link_to "Novo Desconto", new_desconto_path, class: "btn btn-primary" %>
+  </div>
+  <div class="card-body">
+    <%= form_with url: descontos_path, method: :get, local: true do %>
+      <div class="card-body d-flex justify-content-between align-items-center">
+        <div class="form-group col-md-6">
+          <%= label_tag :status, "Status" %>
+          <%= select_tag :status, options_for_select(['Todos', 'Ativo', 'Inativo'], params[:status]), class: "form-control" %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= label_tag :tipo, "Tipo de Desconto" %>
+          <%= select_tag :tipo, options_for_select(['Todos'] + Desconto.tipos.keys.map(&:humanize), params[:tipo]), class: "form-control" %>
+        </div>
+      </div>
+      <%= submit_tag 'Filtrar', class: "btn btn-primary mt-2" %>
+    <% end %>
+  </div>
 </div>
 
-<%= link_to "New desconto", new_desconto_path %>
+<div id="descontos" class="row">
+  <% @descontos.each do |desconto| %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <%= render desconto %>
+          <p>
+            <%= link_to "Mostrar este desconto", desconto, class: "btn btn-primary" %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
