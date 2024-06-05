@@ -1,9 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Lista de descontos</h1>
-<p style="font-size: smaller;font-style: italic;"><%= "Loja: #{@loja.nome} - Nova loja online"%></p>
+<p style="font-size: smaller; font-style: italic;"><%= "Loja: #{@loja.nome} - Nova loja online" %></p>
+
 <div class="card mb-3">
-  <div class="card-header d-flex justify-content-between align-items-center">
+  <div class="container-fluid card-header d-flex justify-content-between align-items-center" style="background-color:white;">
     <h2>Descontos cadastrados</h2>
     <%= link_to "Novo Desconto", new_desconto_path, class: "btn btn-primary" %>
   </div>
@@ -22,19 +23,21 @@
       <%= submit_tag 'Filtrar', class: "btn btn-primary mt-2" %>
     <% end %>
   </div>
-</div>
 
-<div id="descontos" class="row">
-  <% @descontos.each do |desconto| %>
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <%= render desconto %>
-          <p>
-            <%= link_to "Mostrar este desconto", desconto, class: "btn btn-primary" %>
-          </p>
+  <div class="card-head container-fluid">
+    <div id="descontos" class="row">
+      <% @descontos.each do |desconto| %>
+        <div class="col-md-12 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <%= render partial: 'desconto', locals: { desconto: desconto } %>
+              <p>
+                <%= link_to "Mostrar este desconto", desconto, class: "btn btn-primary" %>
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
