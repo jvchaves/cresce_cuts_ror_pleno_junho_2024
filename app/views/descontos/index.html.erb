@@ -26,16 +26,16 @@
   <div>
       <div class="card-header justify-content-between align-items-center">
     <div class="row">
-      <div class="col-md-2"><strong>Produto</strong></div>
+      <div class="col-md-2"><strong>Desconto</strong></div>
       <div class="col-md-2"><strong>Tipo</strong></div>
-      <div class="col-md-2"><strong>Ativação</strong></div>
-      <div class="col-md-2"><strong>Inativação</strong></div>
+      <div class="col-md-2"><strong>Data ativação</strong></div>
+      <div class="col-md-2"><strong>Data inativação</strong></div>
       <div class="col-md-4"><strong>Status</strong></div>
     </div>
   </div>
     <div id="descontos" class="row">
       <% @descontos.each do |desconto| %>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
           <div class="card-body">
             <div class="row">
               <%= render partial: 'desconto', locals: { desconto: desconto } %>
