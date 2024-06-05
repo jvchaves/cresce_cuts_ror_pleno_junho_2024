@@ -11,9 +11,17 @@
     </div>
   <% end %>
 
+  <div class="d-flex align-items-center mb-3">
+    <h1 class="mr-3">Formulário cadastro desconto</h1>
+    <div class="form-check form-switch">
+      <%= form.check_box :status, class: "form-check-input", id: "status_checkbox" %>
+      <%= label_tag :status, "Ativo", class: "form-check-label", id: "status_label" %>
+    </div>
+  </div>
+
   <div>
-    <%= form.label :produto_id, style: "display: block" %>
-    <%= form.text_field :produto_id %>
+    <%= form.label :produto_id, "Produto", style: "display: block" %>
+    <%= form.collection_select :produto_id, @produtos, :id, :nome, prompt: "Selecione um produto" %>
   </div>
 
   <div>
@@ -28,12 +36,7 @@
 
   <div>
     <%= form.label :tipo, style: "display: block" %>
-    <%= form.text_field :tipo %>
-  </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.check_box :status %>
+    <%= form.select :tipo, Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }, prompt: "Selecione um tipo" %>
   </div>
 
   <div>
@@ -77,6 +80,22 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Enviar", data: {turbo: false} %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const statusCheckbox = document.getElementById('status_checkbox');
+    const statusLabel = document.getElementById('status_label');
+
+    // Adiciona um listener para o evento de mudança no checkbox
+    statusCheckbox.addEventListener('change', function() {
+      if (statusCheckbox.checked) {
+        statusLabel.innerText = 'Ativo';
+      } else {
+        statusLabel.innerText = 'Inativo';
+      }
+    });
+  });
+</script>
