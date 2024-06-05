@@ -4,6 +4,7 @@ class DescontosController < ApplicationController
   # GET /descontos or /descontos.json
   def index
     @descontos = Desconto.all
+    @loja = Loja.first
   end
 
   # GET /descontos/1 or /descontos/1.json
