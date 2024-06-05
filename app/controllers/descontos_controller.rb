@@ -19,6 +19,7 @@ class DescontosController < ApplicationController
 
   # GET /descontos/1/edit
   def edit
+    @produtos = Produto.all
   end
 
   # POST /descontos or /descontos.json
