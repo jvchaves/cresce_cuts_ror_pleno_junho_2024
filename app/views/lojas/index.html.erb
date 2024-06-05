@@ -1,14 +1,81 @@
-<p style="color: green"><%= notice %></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vale Vantagens</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-<h1>Lojas</h1>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div id="lojas">
-  <% @lojas.each do |loja| %>
-    <%= render loja %>
-    <p>
-      <%= link_to "Show this loja", loja %>
-    </p>
-  <% end %>
-</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 
-<%= link_to "New loja", new_loja_path %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <style>
+
+    .alert {
+      color: green;
+    }
+
+    #lojas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .loja {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .loja h2 {
+      margin-bottom: 10px;
+    }
+
+    .loja p {
+      margin-bottom: 0;
+    }
+
+    .loja a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .loja a:hover {
+      text-decoration: underline;
+    }
+
+    #new-loja-link {
+      display: block;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="alert"><%= notice %></p>
+
+    <h1>Lojas</h1>
+
+    <div id="lojas" class="row">
+      <% @lojas.each do |loja| %>
+        <div class="col">
+          <div class="loja">
+            <%= render loja %>
+            <i class="bi bi-eye"></i><p><%= link_to "Show this loja", loja %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= link_to "New loja", new_loja_path, id: "new-loja-link", class: "btn btn-primary" %>
+  </div>
+</body>
+</html>
+  

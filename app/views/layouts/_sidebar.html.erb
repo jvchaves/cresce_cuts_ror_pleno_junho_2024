@@ -19,6 +19,7 @@
         width: 256px;
         background-color: #007FBA;
         color: white;
+        height: 100%;
       }
       .sidebar a {
         color: white;
@@ -34,18 +35,14 @@
         align-items: center;
       }
       .nav-link img {
-        margin-right: 10px; /* Adicione um espaçamento entre a imagem e o texto */
-      }
-      .content {
-        padding-left: 1opx; /* Adicione um espaçamento à esquerda para acomodar o sidebar */
+        margin-right: 10px;
       }
     </style>
   </head>
 
   <body>
     <div class="d-flex flex-row">
-      <!-- Sidebar -->
-      <div class="sidebar vh-100">
+      <div class="sidebar flex-grow-0 vh-100"> 
         <div class="logo text-center">
           <img src="/logo.png" alt="Logo" class="img-fluid">
         </div>
@@ -56,8 +53,7 @@
         </ul>
       </div>
 
-      <!-- Conteúdo -->
-      <div class="content">
+      <div class="content flex-grow-1">
         <div class="container-fluid">
           <%= yield %>
         </div>
