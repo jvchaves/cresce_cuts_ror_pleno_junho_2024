@@ -1,7 +1,7 @@
 <div id="<%= dom_id desconto %>">
   <p>
     <strong>Produto:</strong>
-    <%= desconto.produto_id %>
+    <%= desconto.produto.nome %>
   </p>
 
   <p>
@@ -16,7 +16,7 @@
 
   <p>
     <strong>Tipo:</strong>
-    <%= desconto.tipo %>
+    <%= Desconto.tipos[desconto.tipo] %>
   </p>
 
   <p>
