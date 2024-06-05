@@ -3,8 +3,11 @@ class DescontosController < ApplicationController
 
   # GET /descontos or /descontos.json
   def index
-    @descontos = Desconto.all
     @loja = Loja.first
+    @descontos = Desconto.all
+
+    filtro_status(params[:status]) if params[:status].present?
+    filtro_tipo(params[:tipo]) if params[:tipo].present?
   end
 
   # GET /descontos/1 or /descontos/1.json
@@ -61,6 +64,15 @@ class DescontosController < ApplicationController
   end
 
   private
+
+    def filtro_status(status)
+      @descontos = @descontos.where(status: status == "Ativo")
+    end
+
+    def filtro_tipo(tipo)
+      @descontos = @descontos.where(tipo: tipo)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_desconto
       @desconto = Desconto.find(params[:id])
