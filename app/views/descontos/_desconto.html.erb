@@ -1,67 +1,28 @@
-<div id="<%= dom_id desconto %>">
-  <p>
-    <strong>Produto:</strong>
-    <%= desconto.produto.nome %>
-  </p>
+<div id="<%= dom_id desconto %>" class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <p><%= desconto.produto.nome %></p>
+    </div>
 
-  <p>
-    <strong>Nome:</strong>
-    <%= desconto.nome %>
-  </p>
+    <div class="col-md-2">
+      <p><%= Desconto.tipos[desconto.tipo] %></p>
+    </div>
 
-  <p>
-    <strong>Descricao:</strong>
-    <%= desconto.descricao %>
-  </p>
+    <div class="col-md-2">
+      <p><%= desconto.ativacao %></p>
+    </div>
 
-  <p>
-    <strong>Tipo:</strong>
-    <%= Desconto.tipos[desconto.tipo] %>
-  </p>
+    <div class="col-md-2">
+      <p><%= desconto.inativacao %></p>
+    </div>
+    <div class="col-md-2">
+      <% if desconto.status == true %>
+        <i class="bi bi-toggle2-on"></i>
+      <% else %>
+        <i class="bi bi-toggle2-off"></i>
+      <% end %>
+      <%= link_to '', desconto, class: "bi bi-eye" %>
+    </div>
 
-  <p>
-    <strong>Status:</strong>
-    <%= desconto.status %>
-  </p>
-
-  <p>
-    <strong>Preco:</strong>
-    <%= desconto.preco %>
-  </p>
-
-  <p>
-    <strong>Leve:</strong>
-    <%= desconto.leve %>
-  </p>
-
-  <p>
-    <strong>Pague:</strong>
-    <%= desconto.pague %>
-  </p>
-
-  <p>
-    <strong>Percentual desconto:</strong>
-    <%= desconto.percentual_desconto %>
-  </p>
-
-  <p>
-    <strong>Preco de:</strong>
-    <%= desconto.preco_de %>
-  </p>
-
-  <p>
-    <strong>Preco por:</strong>
-    <%= desconto.preco_por %>
-  </p>
-
-  <p>
-    <strong>Ativacao:</strong>
-    <%= desconto.ativacao %>
-  </p>
-
-  <p>
-    <strong>Inativacao:</strong>
-    <%= desconto.inativacao %>
-  </p>
-
+  </div>
 </div>
