@@ -14,6 +14,7 @@ class DescontosController < ApplicationController
   # GET /descontos/new
   def new
     @desconto = Desconto.new
+    @produtos = Produto.all
   end
 
   # GET /descontos/1/edit
