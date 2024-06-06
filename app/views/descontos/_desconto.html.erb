@@ -17,14 +17,69 @@
     <div class="col-md-2">
       <p><%= desconto.inativacao.strftime("%d/%m/%Y - %H:%M") %></p>
     </div>
+
     <div class="col-md-2 align-items-center justify-content-between">
       <% if desconto.status == true %>
         <i class="bi bi-toggle2-on" style="font-size: 20px; background-color: white; color: #007FBA; padding: 5px; border-radius: 4px;"></i>
       <% else %>
         <i class="bi bi-toggle2-off" style="font-size: 20px; background-color: white; color: #007FBA; padding: 5px; border-radius: 4px;"></i>
       <% end %>
-      <a href="/descontos"> <img src="/olho.svg" class="visualizacao"></a>
+      <a href="#" data-bs-toggle="modal" data-bs-target="#descontoModal"
+        data-produto-nome="<%= desconto.produto.nome %>"
+        data-desconto-tipo="<%= Desconto.tipos[desconto.tipo] %>"
+        data-ativacao="<%= desconto.ativacao.strftime("%d/%m/%Y - %H:%M") %>"
+        data-inativacao="<%= desconto.inativacao.strftime("%d/%m/%Y - %H:%M") %>"
+        data-status="<%= desconto.status ? 'Ativo' : 'Inativo' %>">
+        <img src="/olho.svg" class="visualizacao">
+      </a>
     </div>
-
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="descontoModal" tabindex="-1" aria-labelledby="descontoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="descontoModalLabel">Detalhes do Desconto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Produto:</strong> <span id="modal-produto-nome"></span></p>
+        <p><strong>Tipo:</strong> <span id="modal-desconto-tipo"></span></p>
+        <p><strong>Ativação:</strong> <span id="modal-ativacao"></span></p>
+        <p><strong>Inativação:</strong> <span id="modal-inativacao"></span></p>
+        <p><strong>Status:</strong> <span id="modal-status"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var descontoModal = document.getElementById('descontoModal');
+  descontoModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;
+    var produtoNome = button.getAttribute('data-produto-nome');
+    var descontoTipo = button.getAttribute('data-desconto-tipo');
+    var ativacao = button.getAttribute('data-ativacao');
+    var inativacao = button.getAttribute('data-inativacao');
+    var status = button.getAttribute('data-status');
+
+    var modalProdutoNome = descontoModal.querySelector('#modal-produto-nome');
+    var modalDescontoTipo = descontoModal.querySelector('#modal-desconto-tipo');
+    var modalAtivacao = descontoModal.querySelector('#modal-ativacao');
+    var modalInativacao = descontoModal.querySelector('#modal-inativacao');
+    var modalStatus = descontoModal.querySelector('#modal-status');
+
+    modalProdutoNome.textContent = produtoNome;
+    modalDescontoTipo.textContent = descontoTipo;
+    modalAtivacao.textContent = ativacao;
+    modalInativacao.textContent = inativacao;
+    modalStatus.textContent = status;
+  });
+});
+</script>
