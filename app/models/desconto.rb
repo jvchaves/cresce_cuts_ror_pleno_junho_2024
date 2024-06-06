@@ -17,7 +17,7 @@ class Desconto < ApplicationRecord
     errors.add(:produto, "Precisa ser preenchido") if produto.blank?
     errors.add(:status, "Precisa ser preenchido") if status.blank?
     errors.add(:inativacao, "Precisa ser preenchido") if inativacao.blank?
-    errors.add(:preco, "Precisa ser preenchido") if preco.blank?
+    errors.add(:preco, "Precisa ser preenchido") if preco.blank? and tipo == 'percentual'
     errors.add(:base, "Desconto não é válido") if errors.any?
   end
 
