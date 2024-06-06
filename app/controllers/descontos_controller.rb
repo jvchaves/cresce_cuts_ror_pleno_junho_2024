@@ -28,6 +28,9 @@ class DescontosController < ApplicationController
 
   # POST /descontos or /descontos.json
   def create
+    #@produtos = Produto.all
+    @loja = Loja.first
+    @produtos = Produto.where(id: desconto_params[:produto_id].to_i)
     @desconto = Desconto.new(desconto_params)
 
     respond_to do |format|
@@ -43,6 +46,7 @@ class DescontosController < ApplicationController
 
   # PATCH/PUT /descontos/1 or /descontos/1.json
   def update
+    @loja = Loja.first
     respond_to do |format|
       if @desconto.update(desconto_params)
         format.html { redirect_to desconto_url(@desconto), notice: "Desconto was successfully updated." }
