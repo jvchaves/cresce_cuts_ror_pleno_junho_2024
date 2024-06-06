@@ -56,10 +56,11 @@ RSpec.describe Desconto, type: :model do
     it "não é válido sem preco" do
       desconto = Desconto.new(
         nome: "Desconto Teste",
-        tipo: "de_por",
+        tipo: "Percentual",
         ativacao: Date.today,
         produto: produto
       )
+
       expect(desconto).not_to be_valid
       expect(desconto.errors[:preco]).to include("Precisa ser preenchido")
     end
