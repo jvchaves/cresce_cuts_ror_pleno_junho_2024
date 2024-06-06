@@ -43,9 +43,21 @@
         <%= form.select :tipo, options_for_select(Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }), {}, { class: 'form-select'} %>
       </div>
 
-      <div id="preco_field">
-        <%= form.label "Preço", style: "display: block" %>
-        <%= form.text_field :preco, required: true, class: "form-control" %>
+      <div class="row">
+        <div id="preco_field" class="form-group col-sm-4">
+          <%= form.label "Preço", style: "display: block" %>
+          <%= form.text_field :preco, required: true, class: "form-control" %>
+        </div>
+
+        <div id="leve_field" class="form-group col-sm-4">
+          <%= form.label :leve, style: "display: block" %>
+          <%= form.number_field :leve, required: true, class: "form-control" %>
+        </div>
+
+        <div id="pague_field" class="form-group col-sm-4">
+          <%= form.label :pague, style: "display: block" %>
+          <%= form.number_field :pague, required: true, class: "form-control" %>
+        </div>
       </div>
 
       <div class="row">
@@ -76,17 +88,6 @@
             <%= form.date_field :inativacao, required: true, class: "form-control" %>
           </div>
         </div>
-      </div>
-
-
-      <div id="leve_field">
-        <%= form.label :leve, style: "display: block" %>
-        <%= form.number_field :leve, required: true, class: "form-control" %>
-      </div>
-
-      <div id="pague_field">
-        <%= form.label :pague, style: "display: block" %>
-        <%= form.number_field :pague, required: true, class: "form-control" %>
       </div>
 
       <div id="percentual_desconto_field">
