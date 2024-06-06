@@ -40,13 +40,13 @@
 
       <div id="tipo_field">
         <%= form.label "Tipo do desconto", style: "display: block" %>
-        <%= form.select :tipo, options_for_select(Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }), {}, { class: 'form-select'} %>
+        <%= form.select :tipo, options_for_select(Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }), {}, { class: 'form-select', id: 'desconto_tipo'} %>
       </div>
 
       <div class="row">
         <div id="preco_field" class="form-group col-sm-4">
           <%= form.label "Preço", style: "display: block" %>
-          <%= form.text_field :preco, required: true, class: "form-control" %>
+          <%= form.number_field :preco, required: true, class: "form-control" %>
         </div>
 
         <div id="leve_field" class="form-group col-sm-4">
@@ -57,6 +57,18 @@
         <div id="pague_field" class="form-group col-sm-4">
           <%= form.label :pague, style: "display: block" %>
           <%= form.number_field :pague, required: true, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="preco_percentual_field" class="form-group col-sm-6" style="display: none;">
+          <%= form.label "Preço", style: "display: block" %>
+          <%= form.text_field :preco, required: true, class: "form-control" %>
+        </div>
+
+        <div id="percentual_desconto_field" class="form-group col-sm-6">
+          <%= form.label :percentual_desconto, style: "display: block" %>
+          <%= form.text_field :percentual_desconto, required: true, class: "form-control" %>
         </div>
       </div>
 
@@ -89,11 +101,6 @@
           </div>
         </div>
       </div>
-
-      <div id="percentual_desconto_field">
-        <%= form.label :percentual_desconto, style: "display: block" %>
-        <%= form.text_field :percentual_desconto, required: true, class: "form-control" %>
-      </div>
     </div>
     <div class="card-footer text-right">
       <%= form.submit "Enviar", class: "btn btn-primary", data: {turbo: false} %>
@@ -113,27 +120,37 @@
       percentual_desconto_field: document.getElementById('percentual_desconto_field'),
       preco_de_field: document.getElementById('preco_de_field'),
       preco_por_field: document.getElementById('preco_por_field'),
+      preco_percentual_field: document.getElementById('preco_percentual_field'),
+      preco_field: document.getElementById('preco_field')
     };
 
     const showFieldsForTipo = (tipo) => {
-      // Primeiro, oculta todos os campos extras
+
       for (const field in fields) {
         fields[field].style.display = 'none';
+        fields[field].querySelector('input, select').disabled = true;
       }
 
-      // Em seguida, exibe os campos necessários com base no tipo selecionado
-      if (tipo === 'de_por') { // Substitua 'de_por' pelo valor correto do tipo "DE / POR"
+
+      if (tipo === 'de_por') {
         fields.preco_de_field.style.display = 'block';
         fields.preco_por_field.style.display = 'block';
-      } else if (tipo === 'percentual') { // Substitua 'percentual' pelo valor correto do tipo "Percentual"
+      } else if (tipo === 'percentual') {
         fields.percentual_desconto_field.style.display = 'block';
-      } else if (tipo === 'leve_mais_pague_menos') { // Substitua 'leve_mais_pague_menos' pelo valor correto do tipo "Leve Mais Pague Menos"
+        fields.preco_percentual_field.style.display = 'block';
+      } else if (tipo === 'leve_mais_pague_menos') {
         fields.leve_field.style.display = 'block';
         fields.pague_field.style.display = 'block';
+        fields.preco_field.style.display = 'block';
+      }
+
+      for (const field in fields) {
+        if (fields[field].style.display === 'block') {
+          fields[field].querySelector('input, select').disabled = false;
+        }
       }
     };
 
-    // Adiciona um listener para o evento de mudança no checkbox
     statusCheckbox.addEventListener('change', function() {
       if (statusCheckbox.checked) {
         statusLabel.innerText = 'Ativo';
@@ -142,12 +159,10 @@
       }
     });
 
-    // Adiciona um listener para o evento de mudança no campo tipo
     tipoSelect.addEventListener('change', function() {
       showFieldsForTipo(tipoSelect.value);
     });
 
-    // Inicializa os campos no carregamento da página
     showFieldsForTipo(tipoSelect.value);
   });
 </script>
