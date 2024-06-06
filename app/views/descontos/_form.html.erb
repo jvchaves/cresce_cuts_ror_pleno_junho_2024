@@ -25,62 +25,62 @@
 
       <div>
         <%= form.label :produto_id, "Produto", style: "display: block" %>
-        <%= form.collection_select :produto_id, @produtos, :id, :nome, prompt: "Selecione um produto" %>
+        <%= form.collection_select :produto_id, @produtos, :id, :nome, include_blank: false, required: true %>
       </div>
 
       <div>
         <%= form.label :nome, style: "display: block" %>
-        <%= form.text_field :nome %>
+        <%= form.text_field :nome, required: true %>
       </div>
 
       <div>
         <%= form.label :descricao, style: "display: block" %>
-        <%= form.text_field :descricao %>
+        <%= form.text_field :descricao, required: true %>
       </div>
 
       <div>
         <%= form.label :tipo, style: "display: block" %>
-        <%= form.select :tipo, Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }, prompt: "Selecione um tipo" %>
+        <%= form.select :tipo, Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }, include_blank: false, required: true %>
       </div>
 
       <div>
         <%= form.label :preco, style: "display: block" %>
-        <%= form.text_field :preco %>
+        <%= form.text_field :preco, required: true %>
       </div>
 
       <div>
         <%= form.label :leve, style: "display: block" %>
-        <%= form.number_field :leve %>
+        <%= form.number_field :leve, required: true %>
       </div>
 
       <div>
         <%= form.label :pague, style: "display: block" %>
-        <%= form.number_field :pague %>
+        <%= form.number_field :pague, required: true %>
       </div>
 
       <div>
         <%= form.label :percentual_desconto, style: "display: block" %>
-        <%= form.text_field :percentual_desconto %>
+        <%= form.text_field :percentual_desconto, required: true %>
       </div>
 
       <div>
         <%= form.label :preco_de, style: "display: block" %>
-        <%= form.text_field :preco_de %>
+        <%= form.text_field :preco_de, required: true %>
       </div>
 
       <div>
         <%= form.label :preco_por, style: "display: block" %>
-        <%= form.text_field :preco_por %>
+        <%= form.text_field :preco_por, required: true %>
       </div>
 
       <div>
         <%= form.label :ativacao, style: "display: block" %>
-        <%= form.date_field :ativacao %>
+        <%= form.date_field :ativacao, required: true %>
       </div>
 
       <div>
         <%= form.label :inativacao, style: "display: block" %>
-        <%= form.date_field :inativacao %>
+        <%= form.date_field :inativacao, required: true %>
       </div>
     </div>
     <div class="card-footer text-right">
