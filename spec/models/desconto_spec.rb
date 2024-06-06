@@ -65,6 +65,7 @@ RSpec.describe Desconto, type: :model do
   end
 
   context "Descontos do tipo DE-POR" do
+
     it "é válido com preço de e preço por" do
       desconto = Desconto.new(
         nome: "Desconto Teste",
@@ -102,6 +103,33 @@ RSpec.describe Desconto, type: :model do
       )
       expect(desconto).not_to be_valid
       expect(desconto.errors[:preco_por]).to include("Precisa ser preenchido")
+    end
+  end
+
+  context "Descontos do tipo Percentual" do
+    
+    it "é válido com percentual de desconto" do
+      desconto = Desconto.new(
+        nome: "Desconto Teste",
+        tipo: "percentual",
+        ativacao: Date.today,
+        preco: 10.0,
+        percentual_desconto: 10.0,
+        produto: produto
+      )
+      expect(desconto).to be_valid
+    end
+
+    it "não é válido sem percentual de desconto" do
+      desconto = Desconto.new(
+        nome: "Desconto Teste",
+        tipo: "percentual",
+        ativacao: Date.today,
+        preco: 10.0,
+        produto: produto
+      )
+      expect(desconto).not_to be_valid
+      expect(desconto.errors[:percentual_desconto]).to include("Precisa ser preenchido")
     end
   end
 end
