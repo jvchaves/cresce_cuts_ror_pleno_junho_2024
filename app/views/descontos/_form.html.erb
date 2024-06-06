@@ -23,64 +23,64 @@
         </div>
       <% end %>
 
-      <div>
+      <div id="produto_field">
         <%= form.label :produto_id, "Produto", style: "display: block" %>
         <%= form.collection_select :produto_id, @produtos, :id, :nome, include_blank: false, required: true %>
       </div>
 
-      <div>
+      <div id="nome_field">
         <%= form.label :nome, style: "display: block" %>
-        <%= form.text_field :nome, required: true %>
+        <%= form.text_field :nome, required: true, id: "desconto_nome" %>
       </div>
 
-      <div>
+      <div id="descricao_field">
         <%= form.label :descricao, style: "display: block" %>
-        <%= form.text_field :descricao, required: true %>
+        <%= form.text_field :descricao, required: true, id: "desconto_descricao" %>
       </div>
 
-      <div>
+      <div id="tipo_field">
         <%= form.label :tipo, style: "display: block" %>
-        <%= form.select :tipo, Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }, include_blank: false, required: true %>
+        <%= form.select :tipo, Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }, include_blank: false, required: true, id: "desconto_tipo" %>
       </div>
 
-      <div>
+      <div id="preco_field">
         <%= form.label :preco, style: "display: block" %>
         <%= form.text_field :preco, required: true %>
       </div>
 
-      <div>
-        <%= form.label :leve, style: "display: block" %>
-        <%= form.number_field :leve, required: true %>
-      </div>
-
-      <div>
-        <%= form.label :pague, style: "display: block" %>
-        <%= form.number_field :pague, required: true %>
-      </div>
-
-      <div>
-        <%= form.label :percentual_desconto, style: "display: block" %>
-        <%= form.text_field :percentual_desconto, required: true %>
-      </div>
-
-      <div>
+      <div id="preco_de_field">
         <%= form.label :preco_de, style: "display: block" %>
         <%= form.text_field :preco_de, required: true %>
       </div>
 
-      <div>
+      <div id="preco_por_field">
         <%= form.label :preco_por, style: "display: block" %>
         <%= form.text_field :preco_por, required: true %>
       </div>
 
-      <div>
+      <div id="ativacao_field">
         <%= form.label :ativacao, style: "display: block" %>
         <%= form.date_field :ativacao, required: true %>
       </div>
 
-      <div>
+      <div id="inativacao_field">
         <%= form.label :inativacao, style: "display: block" %>
         <%= form.date_field :inativacao, required: true %>
+      </div>
+
+      <div id="leve_field">
+        <%= form.label :leve, style: "display: block" %>
+        <%= form.number_field :leve, required: true %>
+      </div>
+
+      <div id="pague_field">
+        <%= form.label :pague, style: "display: block" %>
+        <%= form.number_field :pague, required: true %>
+      </div>
+
+      <div id="percentual_desconto_field">
+        <%= form.label :percentual_desconto, style: "display: block" %>
+        <%= form.text_field :percentual_desconto, required: true %>
       </div>
     </div>
     <div class="card-footer text-right">
@@ -93,6 +93,21 @@
   document.addEventListener('DOMContentLoaded', function() {
     const statusCheckbox = document.getElementById('status_checkbox');
     const statusLabel = document.getElementById('status_label');
+    const tipoSelect = document.getElementById('desconto_tipo');
+
+    const fieldsToHide = [
+      'leve_field',
+      'pague_field',
+      'percentual_desconto_field'
+    ];
+
+    const hideFields = () => {
+      if (tipoSelect.value === 'de_por') { // Substitua 'de_por' pelo valor correto do tipo "DE / POR"
+        fieldsToHide.forEach(fieldId => document.getElementById(fieldId).style.display = 'none');
+      } else {
+        fieldsToHide.forEach(fieldId => document.getElementById(fieldId).style.display = 'block');
+      }
+    };
 
     // Adiciona um listener para o evento de mudança no checkbox
     statusCheckbox.addEventListener('change', function() {
@@ -102,5 +117,11 @@
         statusLabel.innerText = 'Inativo';
       }
     });
+
+    // Adiciona um listener para o evento de mudança no campo tipo
+    tipoSelect.addEventListener('change', hideFields);
+
+    // Inicializa os campos no carregamento da página
+    hideFields();
   });
 </script>
