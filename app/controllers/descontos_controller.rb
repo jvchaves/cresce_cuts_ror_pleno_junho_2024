@@ -28,14 +28,13 @@ class DescontosController < ApplicationController
 
   # POST /descontos or /descontos.json
   def create
-    #@produtos = Produto.all
     @loja = Loja.first
     @produtos = Produto.where(id: desconto_params[:produto_id].to_i)
     @desconto = Desconto.new(desconto_params)
 
     respond_to do |format|
       if @desconto.save
-        format.html { redirect_to desconto_url(@desconto), notice: "Desconto was successfully created." }
+        format.html { redirect_to descontos_path, notice: "Desconto was successfully created." }
         format.json { render :show, status: :created, location: @desconto }
       else
         format.html { render :new, status: :unprocessable_entity }
