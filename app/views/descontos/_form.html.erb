@@ -25,62 +25,62 @@
 
       <div id="produto_field">
         <%= form.label :produto_id, "Produto", style: "display: block" %>
-        <%= form.collection_select :produto_id, @produtos, :id, :nome, include_blank: false, required: true %>
+        <%= form.select :produto_id, options_for_select(Produto.all.map { |produto| [produto.nome, produto.id] }), {}, { class: 'form-select'} %>
       </div>
 
       <div id="nome_field">
-        <%= form.label :nome, style: "display: block" %>
-        <%= form.text_field :nome, required: true, id: "desconto_nome" %>
+        <%= form.label "Nome do desconto", style: "display: block" %>
+        <%= form.text_field :nome, required: true, id: "desconto_nome", class: "form-control" %>
       </div>
 
       <div id="descricao_field">
-        <%= form.label :descricao, style: "display: block" %>
-        <%= form.text_field :descricao, required: true, id: "desconto_descricao" %>
+        <%= form.label "Descrição do desconto", style: "display: block" %>
+        <%= form.text_field :descricao, required: true, id: "desconto_descricao", class: "form-control" %>
       </div>
 
       <div id="tipo_field">
-        <%= form.label :tipo, style: "display: block" %>
-        <%= form.select :tipo, Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }, include_blank: false, required: true, id: "desconto_tipo" %>
+        <%= form.label "Tipo do desconto", style: "display: block" %>
+        <%= form.select :tipo, options_for_select(Desconto.tipos.keys.map { |tipo| [tipo.humanize, tipo] }), {}, { class: 'form-select'} %>
       </div>
 
       <div id="preco_field">
         <%= form.label :preco, style: "display: block" %>
-        <%= form.text_field :preco, required: true %>
+        <%= form.text_field :preco, required: true, class: "form-control" %>
       </div>
 
       <div id="preco_de_field">
         <%= form.label :preco_de, style: "display: block" %>
-        <%= form.text_field :preco_de, required: true %>
+        <%= form.text_field :preco_de, required: true, class: "form-control" %>
       </div>
 
       <div id="preco_por_field">
         <%= form.label :preco_por, style: "display: block" %>
-        <%= form.text_field :preco_por, required: true %>
+        <%= form.text_field :preco_por, required: true, class: "form-control" %>
       </div>
 
       <div id="ativacao_field">
         <%= form.label :ativacao, style: "display: block" %>
-        <%= form.date_field :ativacao, required: true %>
+        <%= form.date_field :ativacao, required: true, class: "form-control" %>
       </div>
 
       <div id="inativacao_field">
         <%= form.label :inativacao, style: "display: block" %>
-        <%= form.date_field :inativacao, required: true %>
+        <%= form.date_field :inativacao, required: true, class: "form-control" %>
       </div>
 
       <div id="leve_field">
         <%= form.label :leve, style: "display: block" %>
-        <%= form.number_field :leve, required: true %>
+        <%= form.number_field :leve, required: true, class: "form-control" %>
       </div>
 
       <div id="pague_field">
         <%= form.label :pague, style: "display: block" %>
-        <%= form.number_field :pague, required: true %>
+        <%= form.number_field :pague, required: true, class: "form-control" %>
       </div>
 
       <div id="percentual_desconto_field">
         <%= form.label :percentual_desconto, style: "display: block" %>
-        <%= form.text_field :percentual_desconto, required: true %>
+        <%= form.text_field :percentual_desconto, required: true, class: "form-control" %>
       </div>
     </div>
     <div class="card-footer text-right">
