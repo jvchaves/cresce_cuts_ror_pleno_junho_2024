@@ -17,13 +17,14 @@
     <div class="col-md-2">
       <p><%= desconto.inativacao.strftime("%d/%m/%Y - %H:%M") %></p>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 align-items-center justify-content-between">
       <% if desconto.status == true %>
-        <i class="bi bi-toggle2-on"></i>
+        <i class="bi bi-toggle2-on" style="font-size: 20px; background-color: white; color: #007FBA; padding: 5px; border-radius: 4px;"></i>
       <% else %>
-        <i class="bi bi-toggle2-off"></i>
+        <i class="bi bi-toggle2-off" style="font-size: 20px; background-color: white; color: #007FBA; padding: 5px; border-radius: 4px;"></i>
       <% end %>
-      <%= link_to '', desconto, class: "bi bi-eye" %>
+      <a href="/descontos"> <img src="/olho.svg" class="visualizacao"></a>
     </div>
+
   </div>
 </div>
