@@ -9,6 +9,7 @@ RSpec.describe Desconto, type: :model do
         nome: "Desconto Teste",
         tipo: "de_por",
         ativacao: Date.today,
+        inativacao: Date.today + 1,
         preco: 10.0,
         preco_de: 20.0,
         preco_por: 15.0,
@@ -71,6 +72,7 @@ RSpec.describe Desconto, type: :model do
         nome: "Desconto Teste",
         tipo: "de_por",
         ativacao: Date.today,
+        inativacao: Date.today + 1,
         preco: 10.0,
         preco_de: 20.0,
         preco_por: 15.0,
@@ -107,12 +109,13 @@ RSpec.describe Desconto, type: :model do
   end
 
   context "Descontos do tipo Percentual" do
-    
+
     it "é válido com percentual de desconto" do
       desconto = Desconto.new(
         nome: "Desconto Teste",
         tipo: "percentual",
         ativacao: Date.today,
+        inativacao: Date.today + 1,
         preco: 10.0,
         percentual_desconto: 10.0,
         produto: produto
@@ -130,6 +133,49 @@ RSpec.describe Desconto, type: :model do
       )
       expect(desconto).not_to be_valid
       expect(desconto.errors[:percentual_desconto]).to include("Precisa ser preenchido")
+    end
+  end
+
+  context "Descontos do tipo Leve + Pague -" do
+
+    it "é válido com leve e pague" do
+      desconto = Desconto.new(
+        nome: "Desconto Teste",
+        tipo: "leve_mais_pague_menos",
+        ativacao: Date.today,
+        inativacao: Date.today + 1,
+        preco: 10.0,
+        leve: 3,
+        pague: 2,
+        produto: produto
+      )
+      expect(desconto).to be_valid
+    end
+
+    it "não é válido sem leve" do
+      desconto = Desconto.new(
+        nome: "Desconto Teste",
+        tipo: "leve_mais_pague_menos",
+        ativacao: Date.today,
+        preco: 10.0,
+        pague: 2,
+        produto: produto
+      )
+      expect(desconto).not_to be_valid
+      expect(desconto.errors[:leve]).to include("Precisa ser preenchido")
+    end
+
+    it "não é válido sem pague" do
+      desconto = Desconto.new(
+        nome: "Desconto Teste",
+        tipo: "leve_mais_pague_menos",
+        ativacao: Date.today,
+        preco: 10.0,
+        leve: 3,
+        produto: produto
+      )
+      expect(desconto).not_to be_valid
+      expect(desconto.errors[:pague]).to include("Precisa ser preenchido")
     end
   end
 end
