@@ -1,6 +1,6 @@
 <%= form_with(model: desconto) do |form| %>
   <div class="card">
-    <div class="card-header">
+    <div class="card-header" style="background-color:white;">
       <div class="d-flex justify-content-between align-items-center">
         <h1>Formulário cadastro desconto</h1>
         <div class="d-flex align-items-center">
@@ -44,29 +44,40 @@
       </div>
 
       <div id="preco_field">
-        <%= form.label :preco, style: "display: block" %>
+        <%= form.label "Preço", style: "display: block" %>
         <%= form.text_field :preco, required: true, class: "form-control" %>
       </div>
 
-      <div id="preco_de_field">
-        <%= form.label :preco_de, style: "display: block" %>
-        <%= form.text_field :preco_de, required: true, class: "form-control" %>
+      <div class="row">
+        <div class="col-sm-6">
+          <div id="preco_de_field" class="form-group">
+            <%= form.label "Preço de", style: "display: block" %>
+            <%= form.text_field :preco_de, required: true, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div id="preco_por_field" class="form-group">
+            <%= form.label "Preço por", style: "display: block" %>
+            <%= form.text_field :preco_por, required: true, class: "form-control" %>
+          </div>
+        </div>
       </div>
 
-      <div id="preco_por_field">
-        <%= form.label :preco_por, style: "display: block" %>
-        <%= form.text_field :preco_por, required: true, class: "form-control" %>
+      <div class="row">
+        <div class="col-sm-6">
+          <div id="ativacao_field" class="form-group">
+            <%= form.label "Data da ativação", style: "display: block" %>
+            <%= form.date_field :ativacao, required: true, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div id="inativacao_field" class="form-group">
+            <%= form.label "Data da inativação", style: "display: block" %>
+            <%= form.date_field :inativacao, required: true, class: "form-control" %>
+          </div>
+        </div>
       </div>
 
-      <div id="ativacao_field">
-        <%= form.label :ativacao, style: "display: block" %>
-        <%= form.date_field :ativacao, required: true, class: "form-control" %>
-      </div>
-
-      <div id="inativacao_field">
-        <%= form.label :inativacao, style: "display: block" %>
-        <%= form.date_field :inativacao, required: true, class: "form-control" %>
-      </div>
 
       <div id="leve_field">
         <%= form.label :leve, style: "display: block" %>
