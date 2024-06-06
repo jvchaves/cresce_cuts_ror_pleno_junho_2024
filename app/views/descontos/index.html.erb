@@ -6,7 +6,7 @@
 <div class="card mb-3">
   <div class="container-fluid card-header d-flex justify-content-between align-items-center" style="background-color:white;">
     <h2>Descontos cadastrados</h2>
-    <%= link_to "Novo Desconto", new_desconto_path, class: "btn btn-primary" %>
+    <%= link_to "Novo Desconto", new_desconto_path, class: "btn btn-primary", style: "background-color: #007FBA; color: white;" %>
   </div>
   <div class="card-body">
     <%= form_with url: descontos_path, method: :get, local: true do %>
@@ -20,7 +20,7 @@
           <%= select_tag :tipo, options_for_select([''] + Desconto.tipos.keys.map { |key| [key.humanize, key] }, params[:tipo]), class: "form-control" %>
         </div>
       </div>
-      <%= submit_tag 'Filtrar', data:{turbo: false}, class: "btn btn-primary mt-2" %>
+      <%= submit_tag 'Filtrar', data:{turbo: false}, class: "btn btn-primary mt-2", style: "background-color: #007FBA; color: white;"%>
     <% end %>
   </div>
   <div>
