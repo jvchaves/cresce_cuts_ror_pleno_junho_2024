@@ -95,17 +95,26 @@
     const statusLabel = document.getElementById('status_label');
     const tipoSelect = document.getElementById('desconto_tipo');
 
-    const fieldsToHide = [
-      'leve_field',
-      'pague_field',
-      'percentual_desconto_field'
-    ];
+    const fields = {
+      leve_field: document.getElementById('leve_field'),
+      pague_field: document.getElementById('pague_field'),
+      percentual_desconto_field: document.getElementById('percentual_desconto_field'),
+      preco_de_field: document.getElementById('preco_de_field'),
+      preco_por_field: document.getElementById('preco_por_field'),
+    };
 
-    const hideFields = () => {
-      if (tipoSelect.value === 'de_por') { // Substitua 'de_por' pelo valor correto do tipo "DE / POR"
-        fieldsToHide.forEach(fieldId => document.getElementById(fieldId).style.display = 'none');
-      } else {
-        fieldsToHide.forEach(fieldId => document.getElementById(fieldId).style.display = 'block');
+    const showFieldsForTipo = (tipo) => {
+      // Primeiro, oculta todos os campos extras
+      for (const field in fields) {
+        fields[field].style.display = 'none';
+      }
+
+      // Em seguida, exibe os campos necessários com base no tipo selecionado
+      if (tipo === 'de_por') { // Substitua 'de_por' pelo valor correto do tipo "DE / POR"
+        fields.preco_de_field.style.display = 'block';
+        fields.preco_por_field.style.display = 'block';
+      } else if (tipo === 'percentual') { // Substitua 'percentual' pelo valor correto do tipo "Percentual"
+        fields.percentual_desconto_field.style.display = 'block';
       }
     };
 
@@ -119,9 +128,11 @@
     });
 
     // Adiciona um listener para o evento de mudança no campo tipo
-    tipoSelect.addEventListener('change', hideFields);
+    tipoSelect.addEventListener('change', function() {
+      showFieldsForTipo(tipoSelect.value);
+    });
 
     // Inicializa os campos no carregamento da página
-    hideFields();
+    showFieldsForTipo(tipoSelect.value);
   });
 </script>
