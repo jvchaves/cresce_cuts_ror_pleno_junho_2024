@@ -1,4 +1,24 @@
-<div id="<%= dom_id desconto %>" class="container-fluid">
+<style>
+  .modal-header {
+    border-bottom: 2px solid #007FBA;
+  }
+  .modal-footer {
+    border-top: none;
+  }
+  .discount-price {
+    color: black;
+    font-size: 1.5rem;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
+  .original-price {
+    text-decoration: line-through;
+    color: #888;
+  }
+
+</style>
+
+<div id="<%= dom_id(desconto) %>" class="container-fluid">
   <div class="row">
     <div class="col-md-1">
       <%= image_tag desconto.produto.foto, width: 50, height: 50, alt: "Foto do Produto" %>
@@ -24,62 +44,95 @@
       <% else %>
         <i class="bi bi-toggle2-off" style="font-size: 20px; background-color: white; color: #007FBA; padding: 5px; border-radius: 4px;"></i>
       <% end %>
-      <a href="#" data-bs-toggle="modal" data-bs-target="#descontoModal"
+      <a href="#" data-toggle="modal" data-target="#descontoModal"
         data-produto-nome="<%= desconto.produto.nome %>"
         data-desconto-tipo="<%= Desconto.tipos[desconto.tipo] %>"
         data-ativacao="<%= desconto.ativacao.strftime("%d/%m/%Y - %H:%M") %>"
         data-inativacao="<%= desconto.inativacao.strftime("%d/%m/%Y - %H:%M") %>"
-        data-status="<%= desconto.status ? 'Ativo' : 'Inativo' %>">
+        data-status="<%= desconto.status ? 'Ativo' : 'Inativo' %>"
+        data-produto-foto="<%= desconto.produto.foto %>"
+        data-descricao="<%= desconto.descricao %>"
+        data-valor="<%= desconto.preco rescue 0.00 %>"
+        data-desconto-nome="<%= desconto.nome %>"
+        data-preco-de="<%= desconto.preco_de rescue 0.00 %>"
+        data-preco-por="<%= desconto.preco_por rescue 0.00 %>"
+        data-leve-pague=" Leve <%= desconto.leve %> Pague <%= desconto.pague %>"
+        data-percentual="<%= desconto.percentual_desconto.to_i %> % OFF "
+        data-valor-percentual="<%= desconto.preco.to_f - (desconto.preco.to_f * desconto.percentual_desconto.to_f / 100) %>">
         <img src="/olho.svg" class="visualizacao">
       </a>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="descontoModal" tabindex="-1" aria-labelledby="descontoModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="descontoModal" tabindex="-1" role="dialog" aria-labelledby="discountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="descontoModalLabel">Detalhes do Desconto</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" style="margin-left: 120px;">Detalhes do desconto</h5>
+          <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+              <img src="/close.svg" alt="Close" width="32" height="32">
+          </button>
       </div>
       <div class="modal-body">
-        <p><strong>Produto:</strong> <span id="modal-produto-nome"></span></p>
-        <p><strong>Tipo:</strong> <span id="modal-desconto-tipo"></span></p>
-        <p><strong>Ativação:</strong> <span id="modal-ativacao"></span></p>
-        <p><strong>Inativação:</strong> <span id="modal-inativacao"></span></p>
-        <p><strong>Status:</strong> <span id="modal-status"></span></p>
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <img id="modal-produto-foto" class="img-fluid" alt="Foto do Produto">
+          </div>
+          <div class="col-md-8">
+            <h4 id="modal-desconto-nome"></h4>
+            <h6 id="modal-produto-nome"></h6>
+            <p id="modal-descricao"></p>
+            <span class="original-price" id="modal-preco-original"></span>
+            <strong><p class="discount-price" id="modal-valor"></p></strong>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      <div class="modal-footer justify-content-between">
+        <a href="<%= edit_desconto_path(desconto) %>" class="btn btn-outline-primary col-5">Editar</a>
+        <button type="button" class="btn btn-primary col-5" data-dismiss="modal">Fechar</button>
       </div>
     </div>
   </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-  var descontoModal = document.getElementById('descontoModal');
-  descontoModal.addEventListener('show.bs.modal', function (event) {
-    var button = event.relatedTarget;
-    var produtoNome = button.getAttribute('data-produto-nome');
-    var descontoTipo = button.getAttribute('data-desconto-tipo');
-    var ativacao = button.getAttribute('data-ativacao');
-    var inativacao = button.getAttribute('data-inativacao');
-    var status = button.getAttribute('data-status');
+    $('#descontoModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var produtoNome = button.data('produto-nome');
+      var descricao = button.data('descricao');
+      var produtoFoto = button.data('produto-foto');
+      var valor = parseFloat(button.data('valor'));
+      var descontoTipo = button.data('desconto-tipo');
+      var levePague = button.data('leve-pague');
+      var percentual = button.data('percentual');
+      var precoDe = parseFloat(button.data('preco-de'));
+      var precoPor = parseFloat(button.data('preco-por'));
+      var valor_percentual = parseFloat(button.data('valor-percentual'));
 
-    var modalProdutoNome = descontoModal.querySelector('#modal-produto-nome');
-    var modalDescontoTipo = descontoModal.querySelector('#modal-desconto-tipo');
-    var modalAtivacao = descontoModal.querySelector('#modal-ativacao');
-    var modalInativacao = descontoModal.querySelector('#modal-inativacao');
-    var modalStatus = descontoModal.querySelector('#modal-status');
+      var modal = $(this);
+      modal.find('#modal-produto-nome').text(produtoNome);
+      modal.find('#modal-descricao').text(descricao);
+      modal.find('#modal-produto-foto').attr('src', produtoFoto);
+      
 
-    modalProdutoNome.textContent = produtoNome;
-    modalDescontoTipo.textContent = descontoTipo;
-    modalAtivacao.textContent = ativacao;
-    modalInativacao.textContent = inativacao;
-    modalStatus.textContent = status;
+      if (descontoTipo === 'Percentual') {
+        modal.find('#modal-desconto-nome').text(percentual);
+        modal.find('#modal-preco-original').text('de R$ ' + valor.toFixed(2).replace('.', ','));
+        modal.find('#modal-valor').text('por R$ ' + valor_percentual.toFixed(2).replace('.', ','));
+      } else if (descontoTipo === 'Leve + Pague -') {
+        modal.find('#modal-desconto-nome').text(levePague);
+        modal.find('#modal-valor').text('por R$ ' + valor.toFixed(2).replace('.', ','));
+      } else if (descontoTipo === 'DE / POR'){
+        modal.find('#modal-desconto-nome').text(' ');
+        modal.find('#modal-preco-original').text('de R$ ' + precoDe.toFixed(2).replace('.', ','));
+        modal.find('#modal-valor').text('por R$ ' + precoPor.toFixed(2).replace('.', ','));
+      }
+    });
   });
-});
 </script>
