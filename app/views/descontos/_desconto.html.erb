@@ -45,6 +45,7 @@
         <i class="bi bi-toggle2-off" style="font-size: 20px; background-color: white; color: #007FBA; padding: 5px; border-radius: 4px;"></i>
       <% end %>
       <a href="#" data-toggle="modal" data-target="#descontoModal"
+        data-id="<%= desconto.id %>"
         data-produto-nome="<%= desconto.produto.nome %>"
         data-desconto-tipo="<%= Desconto.tipos[desconto.tipo] %>"
         data-ativacao="<%= desconto.ativacao.strftime("%d/%m/%Y - %H:%M") %>"
@@ -104,6 +105,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     $('#descontoModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget);
+      var descontoId = button.data('id');
       var produtoNome = button.data('produto-nome');
       var descricao = button.data('descricao');
       var produtoFoto = button.data('produto-foto');
@@ -119,7 +121,6 @@
       modal.find('#modal-produto-nome').text(produtoNome);
       modal.find('#modal-descricao').text(descricao);
       modal.find('#modal-produto-foto').attr('src', produtoFoto);
-      
 
       if (descontoTipo === 'Percentual') {
         modal.find('#modal-desconto-nome').text(percentual);
@@ -133,6 +134,8 @@
         modal.find('#modal-preco-original').text('de R$ ' + precoDe.toFixed(2).replace('.', ','));
         modal.find('#modal-valor').text('por R$ ' + precoPor.toFixed(2).replace('.', ','));
       }
+
+      modal.find('a.btn.btn-outline-primary').attr('href', '/descontos/' + descontoId + '/edit');
     });
   });
 </script>
