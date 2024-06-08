@@ -7,6 +7,7 @@ ruby "3.0.0"
 gem "rails", "~> 7.0.0"
 gem "httparty"
 gem 'whenever', require: false
+gem 'paper_trail', '~> 12.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

@@ -138,6 +138,9 @@ GEM
     nio4r (2.7.3)
     nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
+    paper_trail (12.3.0)
+      activerecord (>= 5.2)
+      request_store (~> 1.1)
     pg (1.5.6)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -186,6 +189,8 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.8)
       io-console (~> 0.5)
+    request_store (1.7.0)
+      rack (>= 1.4)
     rexml (3.2.8)
       strscan (>= 3.0.9)
     rspec-core (3.13.0)
@@ -258,6 +263,7 @@ DEPENDENCIES
   httparty
   jbuilder
   jsbundling-rails
+  paper_trail (~> 12.1)
   pg (~> 1.1)
   pry
   puma (~> 5.0)

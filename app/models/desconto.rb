@@ -1,6 +1,8 @@
 class Desconto < ApplicationRecord
   belongs_to :produto
 
+  has_paper_trail
+
   enum tipo: { de_por: "DE / POR", leve_mais_pague_menos: "Leve + Pague -", percentual: "Percentual" }
 
   validate on: :create do
