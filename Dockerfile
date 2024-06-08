@@ -31,6 +31,9 @@ RUN rm -f package-lock.json
 # Install JavaScript dependencies using Yarn
 RUN yarn install
 
+# Remove the tmp folder if it exists
+RUN rm -rf tmp
+
 # Build assets
 RUN bundle exec rails assets:precompile
 
