@@ -48,7 +48,7 @@ class DescontosController < ApplicationController
     @loja = Loja.first
     respond_to do |format|
       if @desconto.update(desconto_params)
-        format.html { redirect_to desconto_url(@desconto), notice: "Desconto was successfully updated." }
+        format.html { redirect_to descontos_path, notice: "Desconto was successfully updated." }
         format.json { render :show, status: :ok, location: @desconto }
       else
         format.html { render :edit, status: :unprocessable_entity }
